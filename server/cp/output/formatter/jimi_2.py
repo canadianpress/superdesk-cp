@@ -708,7 +708,18 @@ def _find_qcode_item(code, items, jimi_only=True):
     for item in items:
         if item.get("qcode") == code:
             if not jimi_only:
+                # return item
+                pass
+            if item.get("in_jimi"):
                 return item
+            elif item.get("parent"):
+                return _find_qcode_item(item["parent"], items, jimi_only)
+            break
+
+        elif item.get("semaphore_id") == code:
+            print('MAtching Semaphore id')
+            if not jimi_only:
+                pass
             if item.get("in_jimi"):
                 return item
             elif item.get("parent"):
@@ -716,7 +727,10 @@ def _find_qcode_item(code, items, jimi_only=True):
             break
 
 
+
 def _get_name(item, language):
+    print('Item in get name is ')
+    print(item)
     lang = language.replace("_", "-")
     if "-CA" not in lang:
         lang = "{}-CA".format(lang)
