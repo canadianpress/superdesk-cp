@@ -8,6 +8,10 @@ setTimeout(() => {
                 load: () => import('superdesk-core/scripts/extensions/auto-tagger'),
             },
             {
+                id: 'translate-widget',
+                load: () => import('superdesk-core/scripts/extensions/translate-widget'),
+              },
+            {
                 id: 'planning-extension',
                 load: () => import('superdesk-planning/client/planning-extension'),
                 configuration: {
