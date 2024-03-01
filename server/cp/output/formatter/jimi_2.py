@@ -400,8 +400,10 @@ class JimiFormatter(Formatter):
         categories = self._get_categories(item)
         indexes = uniq(categories + self._get_indexes(item))
 
+        
+
         #  Add code here to remove the small case letters from here
-        filtered_indexes = [' '.join(word for word in index.split() if not word[0].islower()) for index in indexes]
+        filtered_indexes = [index for index in indexes if not index[0].islower()]
         # Remove empty strings from the filtered list
         indexes = [index for index in filtered_indexes if index]
         
@@ -428,11 +430,14 @@ class JimiFormatter(Formatter):
             
             if item:
                 name = _get_name(item, language)
+                
             else:
                 name = None
 
             if name is not None and name not in names:
                 names.append(name)
+        
+        
         return names
     
 
@@ -759,15 +764,18 @@ def _find_qcode_item(code, items, jimi_only=True):
 
 
 def _get_name(item, language):
+
     
     lang = language.replace("_", "-")
     if "-CA" not in lang:
         lang = "{}-CA".format(lang)
     try:
+        
         return item["translations"]["name"][lang]
     except (KeyError,):
         pass
     try:
+        
         return item["translations"]["name"][lang.split("-")[0]]
     except (KeyError,):
         pass
